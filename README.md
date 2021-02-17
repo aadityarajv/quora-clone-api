@@ -27,4 +27,4 @@ Appropriate exceptions have been incorporated.
 
 The backend APIs are integrated with Swagger UI at the frontend.
 
-**Contributed by:** Deepak, Prajakta, Aaditya
+**Contributed by:** Prajakta Agale, [Deepak Balwani](https://github.com/deepak12222), [Aaditya Raj](https://github.com/aadityarajv)
