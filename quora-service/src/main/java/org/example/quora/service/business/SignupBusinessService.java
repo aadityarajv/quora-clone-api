@@ -40,7 +40,6 @@ public class SignupBusinessService {
             throw new SignUpRestrictedException("SGR-002", "This user has already been registered, try with any other emailId");
         } else {
             //Generates encrypted password and salt based on the password provided by user during signup
-           // logger.info("Inside signupbusiness password:"userEntity.getPassword());
 
         	String[] encryptedText = passwordCryptographyProvider.encrypt(userEntity.getPassword());
             userEntity.setSalt(encryptedText[0]);
