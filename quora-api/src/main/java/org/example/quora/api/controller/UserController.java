@@ -65,7 +65,7 @@ public class UserController {
         userEntity.setAboutMe(signupUserRequest.getAboutMe());
         userEntity.setSalt("1234abc");
         userEntity.setPassword(signupUserRequest.getPassword());
-        userEntity.setRole("admin");
+        userEntity.setRole("nonadmin");
         //call signupservice method signup
         final UserEntity createdUserEntity = signupBusinessService.signup(userEntity,signupUserRequest.getUserName(),signupUserRequest.getEmailAddress());
         SignupUserResponse userResponse = new SignupUserResponse()

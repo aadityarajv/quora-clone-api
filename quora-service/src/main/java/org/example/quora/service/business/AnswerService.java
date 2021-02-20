@@ -162,4 +162,9 @@ public class AnswerService {
         }
         return answerDao.getAllAnswersToQuestion(questionId);
     }
+
+    public String getQuestionContentByQuestionId(String questionId) {
+        QuestionEntity questionEntity = questionDao.getQuestionByQUuid(questionId);
+        return questionEntity.getContent();
+    }
 }

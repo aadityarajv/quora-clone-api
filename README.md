@@ -7,6 +7,7 @@ The application includes 5 Controllers with various restful APIs:
 **UserController:** It provides signup, signin and signout functionalities
 for a user.
 
+
 **CommonController:** It provides the user profile details of a particular
 user.
 
@@ -27,4 +28,4 @@ Appropriate exceptions have been incorporated.
 
 The backend APIs are integrated with Swagger UI at the frontend.
 
-**Contributed by:** Prajakta Agale, [Deepak Balwani](https://github.com/deepak12222), [Aaditya Raj](https://github.com/aadityarajv)
+**Contributed by:** [Prajakta Agale](https://github.com/Prajakta-cmd), [Deepak Balwani](https://github.com/deepak12222), [Aaditya Raj](https://github.com/aadityarajv)

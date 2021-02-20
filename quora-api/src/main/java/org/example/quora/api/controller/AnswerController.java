@@ -106,9 +106,11 @@ public class AnswerController {
             @PathVariable("questionId") String questionId) throws  AuthorizationFailedException, InvalidQuestionException {
         List<AnswerEntity> answers = answerService.getAllAnswersToQuestion(questionId, accessToken);
         List<AnswerDetailsResponse> answerDetailsResponses = new ArrayList<>();
+        String questionContent = answerService.getQuestionContentByQuestionId(questionId);
         for (AnswerEntity answerEntity : answers) {
             AnswerDetailsResponse answerDetailsResponse = new AnswerDetailsResponse();
             answerDetailsResponse.setId(answerEntity.getUuid());
+            answerDetailsResponse.setQuestionContent(questionContent);
             answerDetailsResponse.setAnswerContent(answerEntity.getAnswer());
             answerDetailsResponses.add(answerDetailsResponse);
         }
