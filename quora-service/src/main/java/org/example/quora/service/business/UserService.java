@@ -1,0 +1,57 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.example.quora.service.business;
+
+import org.example.quora.service.dao.UserDao;
+import org.example.quora.service.entity.UserAuthTokenEntity;
+import org.example.quora.service.entity.UserEntity;
+import org.example.quora.service.exception.AuthorizationFailedException;
+import org.example.quora.service.exception.UserNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class UserService {
+
+    @Autowired
+    UserDao userDao;
+
+    @Autowired
+    PasswordCryptographyProvider passwordCryptographyProvider;
+
+    /**
+     * Gets the user profile details
+     *
+     * @param targetUuid: Contains the user id
+     * @param token: To authenticate the user
+     * @return UserEntity: Returns the User Entity
+     * @throws AuthorizationFailedException ATHR-001: if User has not signed in
+     *                                      ATHR-002: if the User is signed out
+     * @throws UserNotFoundException USR-001: User with entered uuid to be deleted does not exist
+     */
+    //getUser method considers user id and access token as inputs and gets the profile details of a user
+    @Transactional(propagation = Propagation.REQUIRED)
+    public UserEntity getUser(String targetUuid, String token) throws AuthorizationFailedException, UserNotFoundException {
+
+        UserAuthTokenEntity userAuth = userDao.getUserAuthToken(token);
+        if (userAuth == null) {
+            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
+        }
+
+        if (userAuth.getLogoutAt() != null && userAuth.getLogoutAt().isAfter(userAuth.getLoginAt())) {
+            throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to get user details");
+        }
+
+        UserEntity userEntity = userDao.getUserByUuid(targetUuid);
+        if (userEntity == null) {
+            throw new UserNotFoundException("USR-001", "User with entered uuid does not exist");
+        }
+        return userEntity;
+    }
+
+}
